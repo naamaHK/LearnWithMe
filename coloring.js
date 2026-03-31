@@ -9,7 +9,7 @@ const COLOR_THEMES = [
     { name: "🐶 בלואי ובינגו", key: "bluey", color: "#D6F0FF", count: 4 },
     { name: "🐱 הלו קיטי", key: "hello_kitty", color: "#FADADD", count: 3 },
     { name: "🚀 חלל", key: "space", color: "#D6E4F7", count: 3 },
-    { name: "👽 סטיץ׳", key: "stitch", color: "#C5CAE9", count: 4 }
+    { name: "👽 סטיץ׳", key: "stitch", color: "#C5CAE9", count: 14 }
 ];
 
 const PALETTE = [
