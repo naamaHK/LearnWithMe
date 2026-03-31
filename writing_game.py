@@ -829,6 +829,7 @@ class ModeA:
             _flash_border(self.img_canvas)
             self._update_hearts()
             self.entry.delete(0, tk.END)
+            self.entry.delete(0, tk.END)
             if self.guesses_left == 0:
                 self.feedback.config(
                     text=f'😔 הַתְּשׁוּבָה: "{correct}"  ·  הַמִּלָּה: {self.current[1]}',
