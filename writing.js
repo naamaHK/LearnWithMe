@@ -138,6 +138,8 @@ function checkWritingAnswer() {
         playFailApp();
         shakeApp();
         updateWritingLives();
+        currentInput = "";
+        updateInputDisplay();
         if (writingGuessesLeft === 0) {
             fb.textContent = `😔 התשובה היא: ${target} (${currentWordNiqqud})`;
             fb.className = "feedback error";
