@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>לומדים ביחד! 🎓 - Learn With Me</title>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700;800&family=Rubik:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="glass-card" id="app-container">
+        
+        <!-- MAIN MENU -->
+        <div id="view-main-menu" class="view active-view">
+            <h1 class="main-title">🎓 לוֹמְדִים בְּיַחַד! 🎓</h1>
+            <h2 class="subtitle">בְּחַר בְּאֵיזֶה מִשְׂחָק תִּרְצֶה לְשַׂחֵק:</h2>
+            <div class="menu-buttons">
+                <button class="btn-large" style="background: linear-gradient(45deg, #AED6F1, #85C1E9);" onclick="navigate('view-writing-menu')">✏️ מִשְׂחַק כְּתִיבָה</button>
+                <button class="btn-large" style="background: linear-gradient(45deg, #A9DFBF, #7DCEA0);" onclick="navigate('view-math-menu')">🔢 מִשְׂחַק חֶשְׁבּוֹן</button>
+                <button class="btn-large" style="background: linear-gradient(45deg, #F9E4F5, #F5B7B1);" onclick="navigate('view-coloring-menu')">🎨 סֵפֶר הַצְּבִיעָה</button>
+            </div>
+        </div>
+
+        <!-- MATH GAME MENU -->
+        <div id="view-math-menu" class="view">
+            <button class="btn-back" onclick="navigate('view-main-menu')">← חֲזֹר</button>
+            <h1 class="main-title" style="color: #1E8449;">🔢 מִשְׂחַק חֶשְׁבּוֹן 🔢</h1>
+            <h2 class="subtitle">בְּחַר בְּאֵיזֶה תַּרְגִּיל תִּרְצֶה לְתַרְגֵּל:</h2>
+            <div class="menu-buttons">
+                <button class="btn-large" style="background: linear-gradient(45deg, #A9DFBF, #7DCEA0);" onclick="startMathGame(10)">🌱 חִבּוּר וְחִסּוּר עַד 10</button>
+                <button class="btn-large" style="background: linear-gradient(45deg, #AED6F1, #85C1E9);" onclick="startMathGame(20)">🌿 חִבּוּר וְחִסּוּר עַד 20</button>
+                <button class="btn-large" style="background: linear-gradient(45deg, #D7BDE2, #BB8FCE);" onclick="startMathGame(100)">🌳 חִבּוּר וְחִסּוּר עַד 100</button>
+            </div>
+        </div>
+
+        <!-- MATH GAME ACTIVE -->
+        <div id="view-math-game" class="view">
+            <button class="btn-back" onclick="navigate('view-math-menu')">← חֲזֹר לַתַּפְרִיט</button>
+            <h1 id="math-game-title" class="game-title"></h1>
+            <div id="math-lives" class="lives"></div>
+            
+            <div id="math-question-text" class="question-text"></div>
+            
+            <div class="math-canvas-container">
+                <canvas id="mathCanvas"></canvas>
+            </div>
+            
+            <div id="math-instruction" class="instructions"></div>
+
+            <div class="math-input-section">
+                <label>הַתְּשׁוּבָה:</label>
+                <input type="number" id="math-answer-input" autocomplete="off">
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn-action check" onclick="checkMathAnswer()">✅ בְּדֹק!</button>
+            </div>
+            
+            <div id="math-feedback" class="feedback"></div>
+        </div>
+
+        <!-- WRITING GAME MENU -->
+        <div id="view-writing-menu" class="view">
+            <button class="btn-back" onclick="navigate('view-main-menu')">← חֲזֹר</button>
+            <h1 class="main-title" style="color: #2980B9;">✏️ מִשְׂחַק כְּתִיבָה ✏️</h1>
+            <h2 class="subtitle">בְּחַר אֵיזֶה מִשְׂחָק תִּרְצֶה לְשַׂחֵק:</h2>
+            <div class="menu-buttons">
+                <button class="btn-large" style="background: linear-gradient(45deg, #AED6F1, #85C1E9);" onclick="startWritingGame('A')">🔤 מַה הָאוֹת הָרִאשׁוֹנָה?</button>
+                <button class="btn-large" style="background: linear-gradient(45deg, #A9DFBF, #7DCEA0);" onclick="startWritingGame('B')">📝 כְּתֹב אֶת הַמִּלָּה</button>
+            </div>
+        </div>
+
+        <!-- WRITING GAME ACTIVE -->
+        <div id="view-writing-game" class="view">
+            <button class="btn-back" onclick="navigate('view-writing-menu')">← חֲזֹר לַתַּפְרִיט</button>
+            <h1 id="writing-game-title" class="game-title"></h1>
+            <div id="writing-instructions-container">
+                <p id="writing-instruction" class="instructions"></p>
+                <div id="writing-lives" class="lives"></div>
+            </div>
+            
+            <img id="writing-image" src="" alt="Word Image" style="width:260px; height:220px; object-fit:contain; border:4px solid #AED6F1; border-radius:15px; margin:15px auto; display:block; background:white;">
+
+            <div id="writing-input-display" style="display:flex; justify-content:center; gap:8px; margin:20px 0; direction:rtl;"></div>
+            
+            <div class="action-buttons" style="margin-bottom: 20px;">
+                <button id="btn-check-writing" class="btn-action check" onclick="checkWritingAnswer()">✅ בְּדֹק!</button>
+                <button class="btn-action reset" onclick="newWritingQuestion()">🔄 חָדָשׁ</button>
+                <button class="btn-action" style="background: #D7BDE2; color: #2C3E50;" onclick="readWritingWord()">🔊 רֶמֶז</button>
+            </div>
+
+            <div id="writing-keyboard" class="keyboard-container"></div>
+            
+            <div id="writing-feedback" class="feedback"></div>
+        </div>
+
+        <!-- COLORING GAME MENU -->
+        <div id="view-coloring-menu" class="view">
+            <button class="btn-back" onclick="navigate('view-main-menu')">← חֲזֹר</button>
+            <h1 class="main-title">🎨 סֵפֶר הַצְּבִיעָה שֶׁלִּי 🎨</h1>
+            <h2 class="subtitle">בַּחֲרִי נוֹשֵׂא לִצְבִיעָה 👇</h2>
+            <div id="coloring-themes-grid" class="themes-grid"></div>
+        </div>
+
+        <!-- COLORING PAGES MENU -->
+        <div id="view-coloring-pages" class="view">
+            <button class="btn-back" onclick="navigate('view-coloring-menu')">← חֲזֹר לַנּוֹשְׂאִים</button>
+            <h1 id="coloring-pages-title" class="main-title"></h1>
+            <div id="coloring-pages-grid" class="pages-grid"></div>
+        </div>
+
+        <!-- COLORING CANVAS ACTIVE -->
+        <div id="view-coloring-active" class="view" style="max-width: 95%;">
+            <div class="top-bar">
+                <button class="btn-sm" onclick="navigate('view-coloring-pages')">← חֲזֹר</button>
+                <div class="tools">
+                    <button class="btn-sm" style="background:#D1ECF1; color:#0c5460;" onclick="undoColoring()">↩ בַּטֵּל</button>
+                    <button class="btn-sm" style="background:#F8D7DA; color:#721c24;" onclick="clearColoring()">🗑 נַקֵּה הַכֹּל</button>
+                    <button class="btn-sm" style="background:#D4EDDA; color:#155724;" onclick="saveColoring()">💾 שְׁמוֹר</button>
+                </div>
+            </div>
+            
+            <div class="coloring-main">
+                <div class="palette-sidebar">
+                    <h3 style="margin-bottom: 10px;">🎨 צְבָעִים</h3>
+                    <div id="currentColorDisplay" class="current-color-preview"></div>
+                    <div id="palette-grid" class="palette-grid"></div>
+                </div>
+                <div class="canvas-wrapper">
+                    <canvas id="coloringCanvas"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="main.js"></script>
+    <script src="math.js"></script>
+    <script src="writing.js"></script>
+    <script src="coloring.js"></script>
+</body>
+</html>
