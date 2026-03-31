@@ -6,7 +6,7 @@ const COLOR_THEMES = [
     { name: "🌸 מנדלות", key: "mandalas", color: "#F5E6FF", count: 10 },
     { name: "👸 נסיכות", key: "princess", color: "#F3D9F5", count: 10 },
     { name: "🚒 פאו פטרול – יחידת החילוץ", key: "rescue", color: "#FDEBD0", count: 10 },
-    { name: "🐶 בלואי ובינגו", key: "bluey", color: "#D6F0FF", count: 4 },
+    { name: "🐶 בלואי ובינגו", key: "bluey", color: "#D6F0FF", count: 10 },
     { name: "🐱 הלו קיטי", key: "hello_kitty", color: "#FADADD", count: 10 },
     { name: "🚀 חלל", key: "space", color: "#D6E4F7", count: 10 },
     { name: "👽 סטיץ׳", key: "stitch", color: "#C5CAE9", count: 14 }
