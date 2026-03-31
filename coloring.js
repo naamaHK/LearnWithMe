@@ -1,5 +1,5 @@
 const COLOR_THEMES = [
-    { name: "🌊 עולם הים", key: "ocean", color: "#C8F0FF", count: 3 },
+    { name: "🌊 עולם הים", key: "ocean", color: "#C8F0FF", count: 10 },
     { name: "🦕 דינוזאורים", key: "dinos", color: "#D5F5D5", count: 10 },
     { name: "🚗 כלי רכב", key: "vehicles", color: "#FFF9C4", count: 10 },
     { name: "🦄 חדי קרן", key: "unicorn", color: "#FFF0FA", count: 10 },
@@ -7,8 +7,8 @@ const COLOR_THEMES = [
     { name: "👸 נסיכות", key: "princess", color: "#F3D9F5", count: 10 },
     { name: "🚒 פאו פטרול – יחידת החילוץ", key: "rescue", color: "#FDEBD0", count: 10 },
     { name: "🐶 בלואי ובינגו", key: "bluey", color: "#D6F0FF", count: 4 },
-    { name: "🐱 הלו קיטי", key: "hello_kitty", color: "#FADADD", count: 3 },
-    { name: "🚀 חלל", key: "space", color: "#D6E4F7", count: 3 },
+    { name: "🐱 הלו קיטי", key: "hello_kitty", color: "#FADADD", count: 10 },
+    { name: "🚀 חלל", key: "space", color: "#D6E4F7", count: 10 },
     { name: "👽 סטיץ׳", key: "stitch", color: "#C5CAE9", count: 14 }
 ];
 
