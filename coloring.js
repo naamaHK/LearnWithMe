@@ -1,7 +1,7 @@
 const COLOR_THEMES = [
     { name: "🌊 עולם הים", key: "ocean", color: "#C8F0FF", count: 3 },
     { name: "🦕 דינוזאורים", key: "dinos", color: "#D5F5D5", count: 10 },
-    { name: "🚗 כלי רכב", key: "vehicles", color: "#FFF9C4", count: 3 },
+    { name: "🚗 כלי רכב", key: "vehicles", color: "#FFF9C4", count: 10 },
     { name: "🦄 חדי קרן", key: "unicorn", color: "#FFF0FA", count: 10 },
     { name: "🌸 מנדלות", key: "mandalas", color: "#F5E6FF", count: 10 },
     { name: "👸 נסיכות", key: "princess", color: "#F3D9F5", count: 10 },
