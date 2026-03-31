@@ -952,7 +952,14 @@ class ModeB:
 
     def _redraw_image(self):
         self.img_canvas.delete("all")
-        self.current[3](self.img_canvas)
+        # Try loading a PNG from images/ folder first
+        png_path = os.path.join(f"{GAME_DIR}/images", f"{self.current[0]}.png")
+        if _PIL_OK and os.path.exists(png_path):
+            pil_img = _PILImage.open(png_path).resize((260, 220), _PILImage.LANCZOS)
+            self._tk_img = _ImageTk.PhotoImage(pil_img)
+            self.img_canvas.create_image(0, 0, anchor='nw', image=self._tk_img)
+        else:
+            self.current[3](self.img_canvas)
 
     def _check(self):
         if self.guesses_left <= 0:
@@ -978,6 +985,7 @@ class ModeB:
             shake(self.root)
             _flash_border(self.img_canvas, good_color="#A9DFBF")
             self._update_hearts()
+            self.entry.delete(0, tk.END)
             if self.guesses_left == 0:
                 self.feedback.config(
                     text=f"😔 הַמִּלָּה הַנְּכוֹנָה הִיא: {correct_niqqud}",
