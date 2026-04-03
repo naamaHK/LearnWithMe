@@ -13,18 +13,21 @@ const COLOR_THEMES = [
 ];
 
 const PALETTE = [
-    "#FF0000", "#FF6600", "#FFEA00", "#C8FF00",
-    "#00CC44", "#00AAFF", "#0000EE", "#6600CC",
-    "#FF00FF", "#FF0077", "#FF99CC", "#FFCCAA",
-    "#FF3333", "#FF9900", "#88FF00", "#00FFCC",
-    "#FF69B4", "#663300", "#CC8800", "#FFD700",
-    "#FFFFFF", "#BBBBBB", "#555555", "#000000"
+    "#FFE4E1", "#FFB6C1", "#FF69B4", "#FF1493", "#FF0000", "#8B0000",
+    "#FFE4C4", "#FFDAB9", "#F4A460", "#FF7F50", "#FF8C00", "#D2691E",
+    "#8B4513", "#A0522D", "#FFFACD", "#FFFF00", "#FFD700", "#DAA520",
+    "#E0FFF0", "#98FB98", "#00FF00", "#32CD32", "#228B22", "#006400",
+    "#E0FFFF", "#AFEEEE", "#00FFFF", "#00CED1", "#20B2AA", "#008080",
+    "#E6E6FA", "#ADD8E6", "#87CEEB", "#1E90FF", "#0000FF", "#00008B",
+    "#D8BFD8", "#DDA0DD", "#EE82EE", "#BA55D3", "#9932CC", "#4B0082",
+    "#FFFFFF", "#E0E0E0", "#C0C0C0", "#808080", "#404040", "#000000"
 ];
 
 let selectedColor = "#FF0000";
 let coloringHistory = [];
 const MAX_UNDO = 15;
 let currentTheme = null;
+let currentImagePath = "";
 
 // Initialize Menus
 function initColoringMenu() {
@@ -110,11 +113,11 @@ function saveState() {
 }
 
 function openColoringCanvas(imagePath) {
+    currentImagePath = imagePath;
     coloringHistory = [];
     const img = new Image();
     img.crossOrigin = "Anonymous";
     img.onload = () => {
-        // scale to fit nicely
         const MAX_W = 750, MAX_H = 550;
         let scale = Math.min(MAX_W / img.width, MAX_H / img.height, 1);
         canvas.width = img.width * scale;
@@ -123,6 +126,23 @@ function openColoringCanvas(imagePath) {
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
         originalImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        
+        // Check for saved progress (48 hours)
+        const saved = localStorage.getItem(`saved_color_${imagePath}`);
+        if (saved) {
+            try {
+                const data = JSON.parse(saved);
+                if (Date.now() - data.t < 48 * 60 * 60 * 1000) {
+                    const savedImg = new Image();
+                    savedImg.onload = () => {
+                        ctx.drawImage(savedImg, 0, 0);
+                    };
+                    savedImg.src = data.img;
+                } else {
+                    localStorage.removeItem(`saved_color_${imagePath}`);
+                }
+            } catch(e) {}
+        }
     };
     img.src = imagePath;
     navigate('view-coloring-active');
@@ -234,7 +254,22 @@ function clearColoring() {
     }
 }
 
-function saveColoring() {
+function saveProgress() {
+    if (!currentImagePath) return;
+    const base64 = canvas.toDataURL();
+    const data = { t: Date.now(), img: base64 };
+    try {
+        localStorage.setItem(`saved_color_${currentImagePath}`, JSON.stringify(data));
+        const btn = document.getElementById("btn-save-progress");
+        const origText = btn.textContent;
+        btn.textContent = "✅ נִשְׁמַר!";
+        setTimeout(() => btn.textContent = origText, 2500);
+    } catch (e) {
+        alert("לא ניתן לשמור. ייתכן שנגמר המקום בדפדפן.");
+    }
+}
+
+function downloadColoring() {
     const link = document.createElement("a");
     link.download = `coloring_${Date.now()}.png`;
     link.href = canvas.toDataURL();
